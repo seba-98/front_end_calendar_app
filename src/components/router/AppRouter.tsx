@@ -7,6 +7,7 @@ import CalendarScreeen from "../calendar/CalendarScreeen";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { useEffect } from "react";
+import Preload from "../ui/Preload";
 
 
 const AppRouter = () => {
@@ -33,7 +34,7 @@ const AppRouter = () => {
     </Routes>
     )
     :
-    <div>Loading...</div>
+    <Preload/>
   )
 }
 
