@@ -1,5 +1,4 @@
 import  { useState, SyntheticEvent, useEffect } from 'react'
-import Modal from 'react-modal';
 import Swal  from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
@@ -13,13 +12,12 @@ import { eventStartAddNew, startUpdateEvent } from '../../redux-management/actio
 
 //-----------helpers----------------------
 import { EventLoading } from '../../helpers/interfaces';
-import {now, nowPlus1, customStyles} from '../../helpers/CalendarItems';
+import {now, nowPlus1} from '../../helpers/CalendarItems';
 import { useNavigate } from 'react-router-dom';
 import { useQueryParameters } from '../../hooks/useQueryParameters';
 
 
 
-Modal.setAppElement('#root');
 const CalendarModal = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate();
