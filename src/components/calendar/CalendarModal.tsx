@@ -23,6 +23,8 @@ const CalendarModal = () => {
   const navigate=useNavigate();
   const query= useQueryParameters();  
 
+  const nowDate= now.format('YYYY-MM-DDThh:mm');
+  const nowDatePlus= nowPlus1.format('YYYY-MM-DDThh:mm');
 
 
     //-------STATE DATA--------------------------------
@@ -30,19 +32,37 @@ const CalendarModal = () => {
     const {activeEvent}=useSelector((state:any)=>state.calendar);
 
   
-    const [ dateStart, setDateStart ] = useState(  now.toDate() );
-    const [ dateEnd, setDateEnd ] = useState<Date>( nowPlus1.toDate() );
+    const [ dateStart, setDateStart ] = useState<any>(nowDate );
+    const [ dateEnd, setDateEnd ] = useState<any>( nowDatePlus );
     
     
 
+    useEffect(() => {
+
+      if(activeEvent !== null){
+
+        const {start, end}=activeEvent;
+        
+        setDateStart( moment(start).format('YYYY-MM-DDThh:mm'));
+        setDateEnd( moment( end).format('YYYY-MM-DDThh:mm'));
+
+        setFormValues(activeEvent)
+      }
+      else{
+        setDateStart( nowDate);
+        setDateEnd( nowDatePlus);
+        setFormValues(initFormValues)
+      }
+     
+    }, [activeEvent])
 
     //----------------USEFORM HOOK-----------------------
 
     const initFormValues={
       title: '',
       notes:'',
-      start: dateStart,
-      end:dateEnd,
+      start: moment(dateStart).toDate(),
+      end:moment(dateEnd).toDate(),
     }
 
 
@@ -51,23 +71,6 @@ const CalendarModal = () => {
 
     
 
-    useEffect(() => {
-
-      if(activeEvent !== null){
-
-        const {start, end}=activeEvent;
-        setDateStart(start );
-        setDateEnd(end);
-
-        setFormValues(activeEvent)
-      }
-      else{
-        setDateStart(now.toDate());
-        setDateEnd(nowPlus1.toDate());
-        setFormValues(initFormValues)
-      }
-     
-    }, [activeEvent])
     
 
 
@@ -79,26 +82,6 @@ const CalendarModal = () => {
   }
   
   
-  //-------------DATEPICKER OPEN-CLOSE FUNCTIONS---------------
-  //   const openStartDate=()=>setDateStartOpen(!dateStartOpen);
-  //   const openEndDate=()=>setDateEndOpen(!dateEndOpen);
-
-  // //---------DATE FUNCTIONS---------------
-  //   const handleStartDateChange = ( e:any ) =>{ 
-  //     setDateStart( e.toDate() );
-  //     setFormValues({
-  //       ...formValues,
-  //       start:e.toDate()
-  //     })
-  //   };
-  //   const handleEndtDateChange = ( e:any ) =>  {
-  //     setDateEnd( e.toDate() );
-  //     setFormValues({
-  //       ...formValues,
-  //       end:e.toDate()
-  //     })
-  //   };
-
 
   
 
@@ -127,10 +110,21 @@ const CalendarModal = () => {
         dispatch(eventStartAddNew(formValues))
         dispatch(closeModal()); //cerramos el modal
       }; 
-      setDateStart(now.toDate())    //reestablecemos la fecha de inicio del modal
-      setDateEnd(nowPlus1.toDate()) //reestablecemos la fecha de fin del modal
+      setDateStart(nowDate)    //reestablecemos la fecha de inicio del modal
+      setDateEnd(nowDatePlus) //reestablecemos la fecha de fin del modal
 
       handleCloseModal();
+    }
+
+
+    const dateStartChange=({target}:any)=>{
+      setDateStart(target.value);
+      setFormValues({...formValues, start:target.value});
+
+    }
+    const dateEndChange=({target}:any)=>{
+      setDateEnd(target.value);
+      setFormValues({...formValues, end:target.value});
     }
 
   
@@ -150,9 +144,10 @@ const CalendarModal = () => {
             <form className="container" onSubmit={handleSubmit}>
 
                 <div className="form-group mb-3">
-                 
-                 <input type="datetime-local"></input>
-                  
+                  <label>Inicio</label>
+                  <input type="datetime-local" onChange={dateStartChange} value={dateStart}></input>
+                  <label>Fin</label>
+                  <input type="datetime-local" onChange={dateEndChange} value={dateEnd}></input>
                 </div> 
 
                 <hr />

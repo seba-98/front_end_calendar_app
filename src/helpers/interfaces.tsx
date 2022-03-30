@@ -12,7 +12,7 @@ export interface entryEvent{
     //_id:string,
     title: string,
     notes:string,
-    start: Date,
+    start: Date ,
     end:Date,
     // user:User,
   }
