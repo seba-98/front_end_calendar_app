@@ -31,6 +31,7 @@ const CalendarScreeen = () => {
   const {activeEvent}=useSelector((state:any)=>state.calendar);
   const {uid}=useSelector((state:any)=>state.auth);
   const dispatch= useDispatch();
+  const {modalOpen}=useSelector((state:any)=>state.ui);
 
 
 
@@ -53,11 +54,7 @@ const CalendarScreeen = () => {
 
   
   const [lastView, setLastView] = useState<View>(getLastView());
-  
 
-
-  const onSelectEvent = (e:Event ):void => {
-  }
   const onViewChange=(e:View) => {
     localStorage.setItem('lastView', e);
     setLastView(e)
@@ -67,7 +64,7 @@ const CalendarScreeen = () => {
   }
 
 
-  const eventStyleGetter=( event:any, start:any, end:any, isSelected:any):object => {
+  const eventStyleGetter=( event:any):object => {
 
     const equal= event.user._id===uid;
 
@@ -96,7 +93,6 @@ const CalendarScreeen = () => {
           culture='es'
           eventPropGetter={eventStyleGetter} 
           components={{ event:CalendarEvent }}
-          onSelectEvent={onSelectEvent}
           onSelectSlot={selectSlot}
           selectable={true}
           onView={onViewChange}
@@ -104,7 +100,9 @@ const CalendarScreeen = () => {
       />
 
       <AddNewFab />
-      <CalendarModal/>
+      {modalOpen&&
+        <CalendarModal/>
+      }
       {activeEvent&&
         <DeleteFab />
       }

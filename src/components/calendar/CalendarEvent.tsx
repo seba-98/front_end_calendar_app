@@ -5,8 +5,7 @@ import { openModal } from "../../redux-management/actions/uiAction";
 
 const CalendarEvent = ({event}:any) => {
 
-  
-  
+
     const{title, user, _id}=event;
     const {activeEvent} = useSelector((state:any)=>state.calendar);
     const navigate=useNavigate();
