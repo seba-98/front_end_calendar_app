@@ -151,7 +151,7 @@ const CalendarModal = () => {
 
                 <div className="form-group mb-3">
                  
-                 <input type="datetime-local"></input>
+                 
                   
                 </div> 
 
