@@ -139,8 +139,8 @@ const CalendarModal = () => {
 
     
     return (
-      <div>
-        <Modal
+      <div style={{display:`${modalOpen ? 'block' : 'none'}`}}>
+        {/* <Modal
           isOpen={modalOpen}
           onRequestClose={handleCloseModal}
           style={customStyles}
@@ -148,7 +148,7 @@ const CalendarModal = () => {
           className="modal"
           overlayClassName="modal-fondo"
           contentLabel="Example Modal"
-        >
+        > */}
           <h1> Nuevo evento </h1>
             <hr />
             <form className="container" onSubmit={handleSubmit}>
@@ -235,7 +235,7 @@ const CalendarModal = () => {
 
                 
             </form>
-        </Modal>
+        {/* </Modal> */}
       </div>
     );
 }
