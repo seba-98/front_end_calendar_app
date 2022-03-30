@@ -12,7 +12,7 @@ import { closeModal } from '../../redux-management/actions/uiAction';
 import { eventStartAddNew, startUpdateEvent } from '../../redux-management/actions/calendarActions';
 
 //-----------helpers----------------------
-import { EventLoading, momentType } from '../../helpers/interfaces';
+import { EventLoading } from '../../helpers/interfaces';
 import {now, nowPlus1, customStyles} from '../../helpers/CalendarItems';
 import { useNavigate } from 'react-router-dom';
 import { useQueryParameters } from '../../hooks/useQueryParameters';
