@@ -2,9 +2,14 @@ import  { useState, SyntheticEvent, useEffect } from 'react'
 import Swal  from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
-import DatePicker from 'react-datetime';
+import MomentUtils from "@date-io/moment";
 import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+} from '@material-ui/pickers';
 
 //------redux--------------
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,11 +36,11 @@ const CalendarModal = () => {
     const {activeEvent}=useSelector((state:any)=>state.calendar);
 
   
-    const [ dateStart, setDateStart ] = useState<Date>(  now.toDate() );
+    const [ dateStart, setDateStart ] = useState(  now.toDate() );
+    const [ dateStartInput, setDateStartInput ] = useState(  (moment().format("YYYY-MM-DD")) );
     const [ dateEnd, setDateEnd ] = useState<Date>( nowPlus1.toDate() );
     
-    // const [dateStartOpen, setDateStartOpen] = useState<boolean>(false);
-    // const [dateEndOpen, setDateEndOpen] = useState<boolean>(false);
+    
 
 
     //----------------USEFORM HOOK-----------------------
@@ -101,6 +106,17 @@ const CalendarModal = () => {
   //     })
   //   };
 
+  const onInitDateChange = (date:any, value:any) => {
+    setDateStart(date);
+    setDateStartInput(value);
+  };
+
+
+  const dateFormatter = (str:any) => {
+    return str;
+  };
+
+  
 
     //-----------SUBMIT FUNC--------------------------------------------------------
     const handleSubmit = (e:SyntheticEvent)=>{
@@ -134,8 +150,8 @@ const CalendarModal = () => {
     }
 
     const yesterday = moment(dateStart).subtract(1, 'day')
-    const valid = ( current:any ) => current.isAfter( yesterday );
-
+    //const valid = ( current:any ) => current.isAfter( yesterday );
+    const [selectedDate, handleDateChange] = useState(new Date());
     
     return (
       <div >
@@ -152,49 +168,33 @@ const CalendarModal = () => {
             <hr />
             <form className="container" onSubmit={handleSubmit}>
 
-
-
-                 <div className="form-group mb-3">
-                  <label className='date-open' >
-                    INICIO:
-                    <span>{moment(dateStart).format("DD/MM/YYYY/ LT")}</span>
-                    <i className="fa-solid fa-bars"></i>
-                  </label>
-                  
-                  <div >
-                    <DatePicker
-                    inputProps={{style: { width: 250, background: 'black', color: 'white', cursor: 'pointer'}}}
-                    value={ dateStart }
-                    dateFormat="DD-MM-YYYY"
-                    timeFormat="hh:mm A"
-                    closeOnSelect= { true }
-                    closeOnClickOutside={ true }
-                    className="picker"
-                  />
-                  </div>
-                </div>
-
                 <div className="form-group mb-3">
+                  <MuiPickersUtilsProvider 
+                   utils={MomentUtils} 
+                   libInstance={moment}
+                  >
+                    
+                    <KeyboardDatePicker
+                    autoOk={true}
+                    showTodayButton={true}
+                    variant="dialog"
+                    value={dateStart}
+                    format="YYYY-MM-DD"
+                    inputValue={dateStartInput}
+                    onChange={onInitDateChange}
+                    rifmFormatter={dateFormatter}
+                    KeyboardButtonProps={{'aria-label': 'change date'}}
+                  />
+                  <KeyboardTimePicker
+                    margin='normal'
+                    id='time-picker'
+                    label='Hora de inicio'
+                    value={dateStart}
+                    onChange={onInitDateChange}
+                  ></KeyboardTimePicker>
 
-                    <label className='date-open' >
-                      FIN:
-                      <span>{moment(dateEnd).format("DD/MM/YYYY/ LT")}</span>
-                      <i className="fa-solid fa-bars"></i>
-                    </label>
-
-                    <div >
-                      <DatePicker
-                        inputProps={{style: { width: 250, background: 'black', color: 'white', display:''}}}
-                        value={ dateEnd }
-                       
-                        dateFormat="DD-MM-YYYY"
-                        timeFormat="hh:mm A"
-                        closeOnSelect= { true }
-                        closeOnClickOutside={ true }
-                        isValidDate= {valid}
-                        className="picker"
-                      />
-                    </div>
+                  
+                  </MuiPickersUtilsProvider>
                 </div> 
 
                 <hr />
