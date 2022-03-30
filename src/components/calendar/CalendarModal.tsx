@@ -88,14 +88,14 @@ const CalendarModal = () => {
     const openEndDate=()=>setDateEndOpen(!dateEndOpen);
 
   //---------DATE FUNCTIONS---------------
-    const handleStartDateChange = ( e:momentType ) =>{ 
+    const handleStartDateChange = ( e:any ) =>{ 
       setDateStart( e.toDate() );
       setFormValues({
         ...formValues,
         start:e.toDate()
       })
     };
-    const handleEndtDateChange = ( e:momentType ) =>  {
+    const handleEndtDateChange = ( e:any ) =>  {
       setDateEnd( e.toDate() );
       setFormValues({
         ...formValues,
