@@ -2,14 +2,8 @@ import  { useState, SyntheticEvent, useEffect } from 'react'
 import Swal  from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
-import MomentUtils from "@date-io/moment";
 import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-  KeyboardTimePicker,
-} from '@material-ui/pickers';
 
 //------redux--------------
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +31,6 @@ const CalendarModal = () => {
 
   
     const [ dateStart, setDateStart ] = useState(  now.toDate() );
-    const [ dateStartInput, setDateStartInput ] = useState(  (moment().format("YYYY-MM-DD")) );
     const [ dateEnd, setDateEnd ] = useState<Date>( nowPlus1.toDate() );
     
     
@@ -106,15 +99,6 @@ const CalendarModal = () => {
   //     })
   //   };
 
-  const onInitDateChange = (date:any, value:any) => {
-    setDateStart(date);
-    setDateStartInput(value);
-  };
-
-
-  const dateFormatter = (str:any) => {
-    return str;
-  };
 
   
 
@@ -149,10 +133,7 @@ const CalendarModal = () => {
       handleCloseModal();
     }
 
-    const yesterday = moment(dateStart).subtract(1, 'day')
-    //const valid = ( current:any ) => current.isAfter( yesterday );
-    const [selectedDate, handleDateChange] = useState(new Date());
-    
+  
     return (
       <div >
          <Modal
