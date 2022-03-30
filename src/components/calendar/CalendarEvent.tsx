@@ -2,14 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setActiveEvent } from "../../redux-management/actions/calendarActions";
 import { openModal } from "../../redux-management/actions/uiAction";
-import { RootStore } from "../../redux-management/store/Store";
 
 const CalendarEvent = ({event}:any) => {
 
   
   
     const{title, user, _id}=event;
-    const {activeEvent} = useSelector((state:RootStore)=>state.calendar);
+    const {activeEvent} = useSelector((state:any)=>state.calendar);
     const navigate=useNavigate();
     const dispatch= useDispatch();
 

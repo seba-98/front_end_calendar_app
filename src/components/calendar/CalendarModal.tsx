@@ -8,7 +8,6 @@ import { useForm } from '../../hooks/useForm';
 
 //------redux--------------
 import { useDispatch, useSelector } from 'react-redux';
-import { RootStore } from '../../redux-management/store/Store';
 import { closeModal } from '../../redux-management/actions/uiAction';
 import { eventStartAddNew, startUpdateEvent } from '../../redux-management/actions/calendarActions';
 
@@ -29,8 +28,8 @@ const CalendarModal = () => {
 
 
     //-------STATE DATA--------------------------------
-    const {modalOpen}=useSelector((state:RootStore)=>state.ui);
-    const {activeEvent}=useSelector((state:RootStore)=>state.calendar);
+    const {modalOpen}=useSelector((state:any)=>state.ui);
+    const {activeEvent}=useSelector((state:any)=>state.calendar);
 
   
     const [ dateStart, setDateStart ] = useState<Date>(  now.toDate() );

@@ -16,7 +16,6 @@ import { messages } from '../../helpers/calendar-messages';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AddNewFab from '../ui/AddNewFab'
-import { RootStore } from '../../redux-management/store/Store'
 import DeleteFab from '../ui/DeleteFab'
 import { setActiveEvent } from '../../redux-management/actions/calendarActions'
 
@@ -28,9 +27,9 @@ const localizer = dateFnsLocalizer({ format, parse, startOfWeek, getDay, locales
 
 const CalendarScreeen = () => {
 
-  const {events} = useSelector((state:RootStore) =>state.calendar);
-  const {activeEvent}=useSelector((state:RootStore)=>state.calendar);
-  const {uid}=useSelector((state:RootStore)=>state.auth);
+  const {events} = useSelector((state:any) =>state.calendar);
+  const {activeEvent}=useSelector((state:any)=>state.calendar);
+  const {uid}=useSelector((state:any)=>state.auth);
   const dispatch= useDispatch();
 
 

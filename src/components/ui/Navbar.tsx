@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
-import { RootStore } from "../../redux-management/store/Store";
 import {startLogOut} from '../../redux-management/actions/authActions';
 import { cleanData } from "../../redux-management/actions/calendarActions";
 
 const Navbar = () => {
 
-  const{name} = useSelector((state:RootStore) => state.auth);
+  const{name} = useSelector((state:any) => state.auth);
   const dispatch=useDispatch();
 
   const handleLogout = () =>{
