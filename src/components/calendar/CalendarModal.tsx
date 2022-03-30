@@ -169,32 +169,9 @@ const CalendarModal = () => {
             <form className="container" onSubmit={handleSubmit}>
 
                 <div className="form-group mb-3">
-                  <MuiPickersUtilsProvider 
-                   utils={MomentUtils} 
-                   libInstance={moment}
-                  >
-                    
-                    <KeyboardDatePicker
-                    autoOk={true}
-                    showTodayButton={true}
-                    variant="dialog"
-                    value={dateStart}
-                    format="YYYY-MM-DD"
-                    inputValue={dateStartInput}
-                    onChange={onInitDateChange}
-                    rifmFormatter={dateFormatter}
-                    KeyboardButtonProps={{'aria-label': 'change date'}}
-                  />
-                  <KeyboardTimePicker
-                    margin='normal'
-                    id='time-picker'
-                    label='Hora de inicio'
-                    value={dateStart}
-                    onChange={onInitDateChange}
-                  ></KeyboardTimePicker>
-
+                 
+                 <input type="datetime-local"></input>
                   
-                  </MuiPickersUtilsProvider>
                 </div> 
 
                 <hr />
