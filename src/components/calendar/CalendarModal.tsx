@@ -2,7 +2,8 @@ import  { useState, SyntheticEvent, useEffect } from 'react'
 import Swal  from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
-import DatePicker from 'react-datetime';
+//import DatePicker from 'react-datetime';
+import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
 
 //------redux--------------
@@ -12,11 +13,11 @@ import { eventStartAddNew, startUpdateEvent } from '../../redux-management/actio
 
 //-----------helpers----------------------
 import { EventLoading } from '../../helpers/interfaces';
-import {now, nowPlus1} from '../../helpers/CalendarItems';
+import {customStyles, now, nowPlus1} from '../../helpers/CalendarItems';
 import { useNavigate } from 'react-router-dom';
 import { useQueryParameters } from '../../hooks/useQueryParameters';
 
-
+Modal.setAppElement('#root');
 
 const CalendarModal = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,8 @@ const CalendarModal = () => {
     const [ dateStart, setDateStart ] = useState<Date>(  now.toDate() );
     const [ dateEnd, setDateEnd ] = useState<Date>( nowPlus1.toDate() );
     
-    const [dateStartOpen, setDateStartOpen] = useState<boolean>(false);
-    const [dateEndOpen, setDateEndOpen] = useState<boolean>(false);
+    // const [dateStartOpen, setDateStartOpen] = useState<boolean>(false);
+    // const [dateEndOpen, setDateEndOpen] = useState<boolean>(false);
 
 
     //----------------USEFORM HOOK-----------------------
@@ -81,24 +82,24 @@ const CalendarModal = () => {
   
   
   //-------------DATEPICKER OPEN-CLOSE FUNCTIONS---------------
-    const openStartDate=()=>setDateStartOpen(!dateStartOpen);
-    const openEndDate=()=>setDateEndOpen(!dateEndOpen);
+  //   const openStartDate=()=>setDateStartOpen(!dateStartOpen);
+  //   const openEndDate=()=>setDateEndOpen(!dateEndOpen);
 
-  //---------DATE FUNCTIONS---------------
-    const handleStartDateChange = ( e:any ) =>{ 
-      setDateStart( e.toDate() );
-      setFormValues({
-        ...formValues,
-        start:e.toDate()
-      })
-    };
-    const handleEndtDateChange = ( e:any ) =>  {
-      setDateEnd( e.toDate() );
-      setFormValues({
-        ...formValues,
-        end:e.toDate()
-      })
-    };
+  // //---------DATE FUNCTIONS---------------
+  //   const handleStartDateChange = ( e:any ) =>{ 
+  //     setDateStart( e.toDate() );
+  //     setFormValues({
+  //       ...formValues,
+  //       start:e.toDate()
+  //     })
+  //   };
+  //   const handleEndtDateChange = ( e:any ) =>  {
+  //     setDateEnd( e.toDate() );
+  //     setFormValues({
+  //       ...formValues,
+  //       end:e.toDate()
+  //     })
+  //   };
 
 
     //-----------SUBMIT FUNC--------------------------------------------------------
@@ -138,9 +139,7 @@ const CalendarModal = () => {
     
     return (
       <div >
-
-        <h1>hola</h1>
-        {/* <Modal
+         <Modal
           isOpen={modalOpen}
           onRequestClose={handleCloseModal}
           style={customStyles}
@@ -153,7 +152,7 @@ const CalendarModal = () => {
             <hr />
             <form className="container" onSubmit={handleSubmit}>
 
-                <div className="form-group mb-3">
+                {/* <div className="form-group mb-3">
                   <label className='date-open' onClick={openStartDate}>
                     INICIO:
                     <span>{moment(dateStart).format("DD/MM/YYYY/ LT")}</span>
@@ -195,7 +194,7 @@ const CalendarModal = () => {
                         className="picker"
                       />
                     </div>
-                </div>
+                </div> */}
 
                 <hr />
                 <div className="form-group mb-3">
@@ -235,8 +234,7 @@ const CalendarModal = () => {
 
                 
             </form>
-        {/* </Modal> */}
-
+         </Modal> 
       </div>
     );
 }
