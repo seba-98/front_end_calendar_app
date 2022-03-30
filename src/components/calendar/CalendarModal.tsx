@@ -2,7 +2,7 @@ import  { useState, SyntheticEvent, useEffect } from 'react'
 import Swal  from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 import moment from 'moment';
-//import DatePicker from 'react-datetime';
+import DatePicker from 'react-datetime';
 import Modal from 'react-modal';
 import { useForm } from '../../hooks/useForm';
 
@@ -152,18 +152,19 @@ const CalendarModal = () => {
             <hr />
             <form className="container" onSubmit={handleSubmit}>
 
-                {/* <div className="form-group mb-3">
-                  <label className='date-open' onClick={openStartDate}>
+
+
+                 <div className="form-group mb-3">
+                  <label className='date-open' >
                     INICIO:
                     <span>{moment(dateStart).format("DD/MM/YYYY/ LT")}</span>
                     <i className="fa-solid fa-bars"></i>
                   </label>
                   
-                  <div className={dateStartOpen ? 'datePickerOn' : 'datePickerOff' }>
+                  <div >
                     <DatePicker
                     inputProps={{style: { width: 250, background: 'black', color: 'white', cursor: 'pointer'}}}
                     value={ dateStart }
-                    onChange={ handleStartDateChange }
                     dateFormat="DD-MM-YYYY"
                     timeFormat="hh:mm A"
                     closeOnSelect= { true }
@@ -175,17 +176,17 @@ const CalendarModal = () => {
 
                 <div className="form-group mb-3">
 
-                    <label className='date-open' onClick={openEndDate}>
+                    <label className='date-open' >
                       FIN:
                       <span>{moment(dateEnd).format("DD/MM/YYYY/ LT")}</span>
                       <i className="fa-solid fa-bars"></i>
                     </label>
 
-                    <div className={dateEndOpen ? 'datePickerOn' : 'datePickerOff'}>
+                    <div >
                       <DatePicker
                         inputProps={{style: { width: 250, background: 'black', color: 'white', display:''}}}
                         value={ dateEnd }
-                        onChange={ handleEndtDateChange }
+                       
                         dateFormat="DD-MM-YYYY"
                         timeFormat="hh:mm A"
                         closeOnSelect= { true }
@@ -194,7 +195,7 @@ const CalendarModal = () => {
                         className="picker"
                       />
                     </div>
-                </div> */}
+                </div> 
 
                 <hr />
                 <div className="form-group mb-3">
