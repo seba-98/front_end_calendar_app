@@ -23,18 +23,14 @@ const CalendarModal = () => {
   const navigate=useNavigate();
   const query= useQueryParameters();  
 
-  const nowDate= now.format('YYYY-MM-DDThh:mm');
-  const nowDatePlus= nowPlus1.format('YYYY-MM-DDThh:mm');
-
 
     //-------STATE DATA--------------------------------
     const {modalOpen}=useSelector((state:any)=>state.ui);
     const {activeEvent}=useSelector((state:any)=>state.calendar);
 
   
-    const [ dateStart, setDateStart ] = useState<any>(nowDate );
-    const [ dateEnd, setDateEnd ] = useState<any>( nowDatePlus );
-    
+    const [ dateStart, setDateStart ] = useState<any>(moment(now).format('YYYY/MM/DD hh:mm A'));
+    const [ dateEnd, setDateEnd ] = useState<any>(moment(nowPlus1).format('YYYY/MM/DD hh:mm A'));
     
 
     useEffect(() => {
@@ -42,15 +38,13 @@ const CalendarModal = () => {
       if(activeEvent !== null){
 
         const {start, end}=activeEvent;
-        
-        setDateStart( moment(start).format('YYYY-MM-DDThh:mm'));
-        setDateEnd( moment( end).format('YYYY-MM-DDThh:mm'));
-
+        setDateStart(moment(start).format('YYYY/MM/DD hh:mm A'));
+        setDateEnd(moment(end).format('YYYY-MM-DD hh:mm A') );
         setFormValues(activeEvent)
       }
       else{
-        setDateStart( nowDate);
-        setDateEnd( nowDatePlus);
+        setDateStart( moment(now).format('YYYY/MM/DD hh:mm A'));
+        setDateEnd( moment(nowPlus1).format('YYYY/MM/DD hh:mm A'));
         setFormValues(initFormValues)
       }
      
@@ -106,21 +100,23 @@ const CalendarModal = () => {
         dispatch(eventStartAddNew(formValues))
         dispatch(closeModal()); //cerramos el modal
       }; 
-      setDateStart(nowDate)    //reestablecemos la fecha de inicio del modal
-      setDateEnd(nowDatePlus) //reestablecemos la fecha de fin del modal
+      setDateStart(now)    //reestablecemos la fecha de inicio del modal
+      setDateEnd(nowPlus1) //reestablecemos la fecha de fin del modal
 
       handleCloseModal();
     }
 
 
     const dateStartChange=({target}:any)=>{
-      setDateStart(target.value);
-      setFormValues({...formValues, start:target.value});
+      const value=moment(target.value).format('YYYY/MM/DD hh:mm A');
+      setDateStart(value);
+      setFormValues({...formValues, start:moment(value).toDate() });
 
     }
     const dateEndChange=({target}:any)=>{
-      setDateEnd(target.value);
-      setFormValues({...formValues, end:target.value});
+      const value=moment(target.value).format('YYYY/MM/DD hh:mm A');
+      setDateEnd(value);
+      setFormValues({...formValues, end:moment(value).toDate()});
     }
 
   
@@ -135,15 +131,23 @@ const CalendarModal = () => {
           overlayClassName="modal-fondo"
           contentLabel="Example Modal"
         > 
-          <h1> Nuevo evento </h1>
+          <h1> {!activeEvent ? 'Nuevo evento' : activeEvent.title} </h1>
             <hr />
             <form className="container" onSubmit={handleSubmit}>
 
                 <div className="form-group mb-3">
-                  <label>Inicio</label>
-                  <input type="datetime-local" onChange={dateStartChange} value={dateStart}></input>
-                  <label>Fin</label>
-                  <input type="datetime-local" onChange={dateEndChange} value={dateEnd}></input>
+
+                  <div className='infoDateModal'>
+                    <label>Inicio: </label>
+                    <span>{moment(dateStart).format('A')}</span>
+                  </div>
+
+                  <input type="datetime-local" onChange={dateStartChange} value={moment(dateStart).format('YYYY-MM-DDThh:mm')}></input>
+                 <div className='infoDateModal'>
+                    <label>Fin: </label>
+                    <span>{moment(dateEnd).format('A')}</span>
+                 </div>
+                  <input type="datetime-local" onChange={dateEndChange} value={moment(dateEnd).format('YYYY-MM-DDThh:mm')}></input>
                 </div> 
 
                 <hr />
