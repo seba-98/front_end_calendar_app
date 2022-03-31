@@ -25,7 +25,7 @@ const AppRouter = () => {
 
 
   return (
-    checking ? (
+    !checking ? (
     <Routes>
       <Route path="/" element={<PublicRoute logged={id}><LoginScreen /></PublicRoute>}/>
       <Route path="/login" element={<PublicRoute logged={id}><LoginScreen /></PublicRoute>}/>
