@@ -69,11 +69,8 @@ const CalendarModal = () => {
     const [formValues,handleInputChange, , setFormValues]=useForm(initFormValues);
     const {title, notes, start, end}:EventLoading=formValues;
 
-    
 
-    
-
-
+  
   //-------------MODAL FUNCTIONS---------------
   const handleCloseModal=()=>{
     setFormValues(initFormValues);
@@ -83,7 +80,6 @@ const CalendarModal = () => {
   
   
 
-  
 
     //-----------SUBMIT FUNC--------------------------------------------------------
     const handleSubmit = (e:SyntheticEvent)=>{
